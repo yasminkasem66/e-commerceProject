@@ -8,24 +8,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link " routerLink="/shoping-cart" routerLinkActive="active"> shoping-cart</a>
+                    <a class="nav-link " routerLink="/shoping-cart" routerLinkActive="active"> Shoping Cart</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " routerLink="/login" routerLinkActive="active">login </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Username
+                <ng-template #anonymousUser>
+                    <li class="nav-item">
+                        <a class="nav-link " routerLink="/login" routerLinkActive="active">login </a>
+                    </li>
+                </ng-template>
+                <li class="nav-item dropdown" *ngIf="auth.user$|async as user; else anonymousUser">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{user.displayName}}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" routerLink="/myorders">My ordeers</a></li>
                         <li><a class="dropdown-item" routerLink="/admin/orders">Mange Order</a></li>
                         <li><a class="dropdown-item" routerLink="/admin/product">Mange Products</a></li>
-                        <li><a class="dropdown-item" >Log Out</a></li>
+                        <li><a class="dropdown-item" (click)="logout()">Log Out</a></li>
                     </ul>
                 </li>
-     
+
             </ul>
         </div>
     </div>
