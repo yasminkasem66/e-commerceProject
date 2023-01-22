@@ -23,6 +23,11 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
+import firebase from 'firebase/compat/app';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 // 2. Add your credentials from 
 const firebaseConfig = {
@@ -34,6 +39,7 @@ const firebaseConfig = {
   appId: '1:795756402381:web:5366ef500364abc6ae7b84',
   measurementId: 'G-93RJPPDQNL',
 };
+
 
 
 
@@ -61,7 +67,11 @@ const firebaseConfig = {
     AngularFireStorageModule, // storage
     AngularFireDatabaseModule,
 
-    NgbModule
+    NgbModule,
+    // provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    // provideAuth(() => getAuth()),
+    // provideDatabase(() => getDatabase()),
+    // provideFirestore(() => getFirestore())
   ],
   providers: [],
   bootstrap: [AppComponent],

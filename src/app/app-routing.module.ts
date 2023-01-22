@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminauthGuard } from './@core/auth/adminauth.guard';
 import { AuthGuard } from './@core/auth/auth.guard';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
@@ -22,8 +23,8 @@ const routes: Routes = [
   { path: 'myorders', component: MyOrdersComponent, canActivate: [AuthGuard] },
   { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
 
-  { path: 'admin/product', component: AdminProductsComponent, canActivate: [AuthGuard] },
-  { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard] },
+  { path: 'admin/product', component: AdminProductsComponent, canActivate: [AuthGuard, AdminauthGuard] },
+  { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminauthGuard] },
   // { path: '**', component: NotFoundPageComponent }, //wild cart if u check the whole path and u didnt find the route use this one
 ];
 

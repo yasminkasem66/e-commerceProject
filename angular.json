@@ -106,6 +106,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "ecommerceWithMosh:build:production",
+            "firebaseProject": "oshop-e574a",
+            "firebaseHostingSite": "oshop-e574a"
+          }
         }
       }
     }

@@ -3,8 +3,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { User } from '../models/user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth,
     private activatedRoute: ActivatedRoute,
     public afs: AngularFirestore, // Inject Firestore service
-    private router: Router,) {
+    private router: Router,
+    private userService: UserService) {
     this.user$ = afAuth.authState;
 
   }
@@ -25,19 +28,18 @@ export class AuthService {
   login() {
     let redirctUrl = this.activatedRoute.snapshot.queryParamMap.get('redirctUrl') || 'Home';
     localStorage.setItem('redirctUrl', JSON.stringify(redirctUrl));
-    this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-
-    // .then((result) => {
-    //   this.router.navigate([redirctUrl])
-    //   // this.SetUserData(result.user);
-
-    // });
+    this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((result) => {
+      this.router.navigate([redirctUrl])
+      // this.SetUserData(result.user);
+    }).catch((error) => {
+      window.alert(error);
+    });;
   }
 
   logout() {
     this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['Home']);
+      this.router.navigate(['login']);
     });
   }
 
@@ -48,7 +50,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
-    const userData: User = {
+    const userData: any = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
@@ -58,5 +60,13 @@ export class AuthService {
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  get appUser(): Observable<User | null> {
+    return this.user$.pipe(
+      switchMap((user: any) => {
+        if (user) return this.userService.getUser(user.uid).valueChanges()
+        return of(null)
+      }))
   }
 }

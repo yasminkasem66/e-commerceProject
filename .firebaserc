@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "oshop-e574a"
+  },
+  "targets": {
+    "oshop-e574a": {
+      "hosting": {
+        "ecommerceWithMosh": [
+          "oshop-e574a"
+        ]
+      }
+    }
   }
 }
