@@ -1,0 +1,20 @@
+<div class=" position-fixed">
+
+    <mat-selection-list class="card pt-0" #category [multiple]="false" color="primary" *ngIf="categories$|async">
+
+        <mat-list-option color="primary" routerLink="/" [class.active]="!selctedCategory ">
+            All Categories
+            <mat-divider style="align-self: stretch;"></mat-divider>
+        </mat-list-option>
+        <mat-list-option color="primary" *ngFor="let category of categories$ |async ; let l=last" routerLink="/"
+            [queryParams]="{category:category.name}" [class.active]="selctedCategory==category.name"
+            [value]="category.name">
+            {{category.name}}
+            <mat-divider style="align-self: stretch;" *ngIf="!l"></mat-divider>
+
+        </mat-list-option>
+
+    </mat-selection-list>
+
+
+</div>

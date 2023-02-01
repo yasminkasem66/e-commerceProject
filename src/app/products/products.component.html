@@ -1,1 +1,19 @@
-<p>products works!</p>
+<div class="row">
+
+    <div class="col-md-4  mt-3 h-50">
+        <app-product-filter [selctedCategory]="selctedCategory"></app-product-filter>
+        <!-- <div class="list-group">
+            <a *ngFor="let category of categories$ |async ; let l=last" routerLink="/"
+                [queryParams]="{category:category.name}" class="list-group-item  list-group-item-action "
+                [class.active]="selctedCategory==category.name" aria-current="true">
+                {{category.name}}
+            </a>
+        </div> -->
+    </div>
+
+    <div class="row col-md-8">
+        <div class="col-md-6 mb-3 mt-3" *ngFor="let prd of filteredProducts">
+            <app-product-card [Product]="prd"></app-product-card>
+        </div>
+    </div>
+</div>
