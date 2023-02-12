@@ -13,7 +13,7 @@
 
     <div class="row col-md-8">
         <div class="col-md-6 mb-3 mt-3" *ngFor="let prd of filteredProducts">
-            <app-product-card [Product]="prd"></app-product-card>
+            <app-product-card [Product]="prd" [shoping_cart]="cart" *ngIf="cart"></app-product-card>
         </div>
     </div>
 </div>

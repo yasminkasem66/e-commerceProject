@@ -26,7 +26,7 @@ export class AuthService {
 
 
   login() {
-    let redirctUrl = this.activatedRoute.snapshot.queryParamMap.get('redirctUrl') || 'Home';
+    let redirctUrl = this.activatedRoute.snapshot.queryParamMap.get('redirctUrl') || '/';
     localStorage.setItem('redirctUrl', JSON.stringify(redirctUrl));
     this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((result) => {
       this.router.navigate([redirctUrl])

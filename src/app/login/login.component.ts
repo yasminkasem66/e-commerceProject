@@ -12,10 +12,7 @@ export class LoginComponent {
   redUrl!: string
 
   constructor(private auth: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.queryParamMap.subscribe((data) => {
-      // this.redUrl = data.get('redUrl') ?data.get('redUrl') :''
 
-    })
   }
 
 

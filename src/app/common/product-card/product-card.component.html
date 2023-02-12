@@ -19,8 +19,25 @@
     <div class="card-body p-0">
         <h3 class="card-title p-2">{{prd.title ?? 'Product title'}}</h3>
         <p class="card-text ps-2">{{(prd.price |currency:'USD':true )?? 5}}</p>
-        <div class="card-footer w-100 d-grid" *ngIf="show_actions">
-            <a mat-raised-button color="primary">Add to cart</a>
+        <div class="card-footer " *ngIf="show_actions">
+            {{getQuantity()}}
+            <button *ngIf="getQuantity()===0; else updateQuantity" mat-raised-button color="primary"
+                (click)="addToCart()" class="w-100 d-grid">Add to cart</button>
+
+            <ng-template #updateQuantity>
+                <div class="row w-100 g-0">
+                    <div class="col-2">
+                        <button mat-raised-button color="primary" (click)="removeFrmCart()" class="w-100">-</button>
+                    </div>
+                    <div class="col-8 text-center">
+                        {{getQuantity()}}
+                    </div>
+                    <div class="col-2">
+                        <button mat-raised-button color="primary" (click)="addToCart()" class="w-100">+</button>
+                    </div>
+                </div>
+            </ng-template>
+
         </div>
     </div>
 </div>

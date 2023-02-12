@@ -41,8 +41,8 @@ export class AdminProductsComponent implements OnInit {
       map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
       )
     ).subscribe((data) => {
-      this.products = data;
-      this.dataSource.data = data;
+      this.products = data as Product[];
+      this.dataSource.data = this.products;
     });
   }
 
