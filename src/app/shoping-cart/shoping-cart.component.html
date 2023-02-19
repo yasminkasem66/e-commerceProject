@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Product</th>
-                <th>Quentity</th>
+                <th class="text-center">Quentity</th>
                 <th>Price</th>
                 <th>Total Price</th>
             </tr>
@@ -19,8 +19,11 @@
                 <td>
                     {{ item.product.title}}
                 </td>
-                <td>
-                    {{ item.quantity}}
+                <td class="text-center">
+                    <app-product-quantity class="w-25" [Product]="item.product"
+                        [shoping_cart]="cart"></app-product-quantity>
+
+                    <!-- {{ item.quantity}} -->
                 </td>
                 <td>
                     {{ item.product.price}}
@@ -32,6 +35,7 @@
         </tbody>
         <tfoot>
             <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th>{{cart.totalPriceCart |currency:'USD':true}}</th>
