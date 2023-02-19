@@ -34,7 +34,7 @@ export class ProductCardComponent implements OnInit {
 
     if (!this.prd.key || !this.shoping_cart) return 0
     let key = this.prd.key as unknown as number;
-    let item = this.shoping_cart.items[key]
+    let item = this.shoping_cart.itemsMap[key]
     return item ? item.quantity : 0
   }
 

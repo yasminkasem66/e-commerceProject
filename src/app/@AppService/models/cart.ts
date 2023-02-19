@@ -14,7 +14,7 @@ export class Cart {
         return Object.keys(this.itemsMap) as unknown as number[]
     }
 
-    get totalCartCount() {
+    get totalItemsCount() {
         let cartItemsCount = 0;
         for (let prdId in this.itemsMap)
             cartItemsCount += this.itemsMap[prdId].quantity
@@ -24,8 +24,8 @@ export class Cart {
 
     get totalPriceCart() {
         let sum = 0;
-        for (let prdId in this.itemsMap)
-            sum += this.itemsMap[prdId].totalPrice
+        for (let prdId in this.items)
+            sum += this.items[prdId].totalPrice
 
         return sum
     }
