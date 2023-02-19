@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
 // 1. Import the libs you need
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -36,8 +35,9 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { ProductFilterComponent } from './common/product-filter/product-filter.component';
 import { ProductCardComponent } from './common/product-card/product-card.component';
+import { ProductQuantityComponent } from './common/product-quantity/product-quantity.component';
 
-// 2. Add your credentials from 
+// 2. Add your credentials from
 const firebaseConfig = {
   apiKey: 'AIzaSyB1_2UZ1KIn3KHnqud1CYhIAD2O2V3PAs8',
   authDomain: 'oshop-e574a.firebaseapp.com',
@@ -47,9 +47,6 @@ const firebaseConfig = {
   appId: '1:795756402381:web:5366ef500364abc6ae7b84',
   measurementId: 'G-93RJPPDQNL',
 };
-
-
-
 
 @NgModule({
   declarations: [
@@ -67,6 +64,7 @@ const firebaseConfig = {
     AddProductComponent,
     ProductFilterComponent,
     ProductCardComponent,
+    ProductQuantityComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,13 +80,13 @@ const firebaseConfig = {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    CustomFormsModule
-    // provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    // provideAuth(() => getAuth()),
-    // provideDatabase(() => getDatabase()),
-    // provideFirestore(() => getFirestore())
+    CustomFormsModule,
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

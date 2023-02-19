@@ -13,53 +13,59 @@ import { ShoppingCartService } from '../@AppService/services/shopping-cart.servi
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-
-
-
-
   products: Product[] = [];
   filteredProducts!: Product[];
   selctedCategory: string = '';
   cart!: Cart;
   subscription!: Subscription;
 
-  constructor(private productService: ProductService,
+  constructor(
+    private productService: ProductService,
     private categoryService: CategoryService,
     private shoppingCartService: ShoppingCartService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute
+  ) {
     this.getProducts();
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-
   async ngOnInit() {
-    this.subscription = (await this.shoppingCartService.getCart()).subscribe((cart) => {
-      this.cart = cart!
-    })
+    this.subscription = (await this.shoppingCartService.getCart()).subscribe(
+      (cart) => {
+        console.log({ cart });
+
+        this.cart = cart!;
+      }
+    );
   }
 
   getProducts() {
-    this.productService.getProdducts().snapshotChanges().pipe(
+    this.productService
+      .getProdducts()
+      .snapshotChanges()
+      .pipe(
+        map((changes) =>
+          changes.map((c) => ({ key: c.payload.key, ...c.payload.val() }))
+        ),
+        switchMap((data) => {
+          this.filteredProducts = this.products = data as Product[];
+          return this.activatedRoute.queryParamMap;
+        })
+      )
+      .subscribe((param) => {
+        this.selctedCategory = param.get('category')!;
+        console.log(' this.selctedCategory', this.selctedCategory);
 
-      map(changes => changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))),
-      switchMap((data) => {
-        this.filteredProducts = this.products = data as Product[];
-        return this.activatedRoute.queryParamMap;
-      })
-    ).subscribe((param) => {
-      this.selctedCategory = param.get('category')!
-      console.log(" this.selctedCategory", this.selctedCategory);
-
-      this.filteredProducts = this.selctedCategory ? this.products.filter((prd) => {
-        return prd.category == this.selctedCategory
-      }) : this.products;
-    });
+        this.filteredProducts = this.selctedCategory
+          ? this.products.filter((prd) => {
+              return prd.category == this.selctedCategory;
+            })
+          : this.products;
+      });
   }
-
-
 }

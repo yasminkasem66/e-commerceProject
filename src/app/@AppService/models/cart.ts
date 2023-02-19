@@ -1,32 +1,38 @@
-import { CartItem } from "./cart-item";
+import { CartItem } from './cart-item';
+import { Product } from './product';
 
 export class Cart {
-
-    items: CartItem[] = [];
-    constructor(public itemsMap: { [productId: string]: CartItem }) {
-        for (let prd in itemsMap) {
-            let item = itemsMap[prd];
-            this.items.push(new CartItem(item.product, item.quantity))
-        }
+  items: CartItem[] = [];
+  constructor(public itemsMap: { [productId: string]: CartItem }) {
+    for (let prd in itemsMap) {
+      let item = itemsMap[prd];
+      this.items.push(new CartItem(item.product, item.quantity));
     }
+  }
 
-    get productIds(): number[] {
-        return Object.keys(this.itemsMap) as unknown as number[]
-    }
+  get productIds(): number[] {
+    return Object.keys(this.itemsMap) as unknown as number[];
+  }
 
-    get totalItemsCount() {
-        let cartItemsCount = 0;
-        for (let prdId in this.itemsMap)
-            cartItemsCount += this.itemsMap[prdId].quantity
+  get totalItemsCount() {
+    let cartItemsCount = 0;
+    for (let prdId in this.itemsMap)
+      cartItemsCount += this.itemsMap[prdId].quantity;
 
-        return cartItemsCount
-    }
+    return cartItemsCount;
+  }
 
-    get totalPriceCart() {
-        let sum = 0;
-        for (let prdId in this.items)
-            sum += this.items[prdId].totalPrice
+  get totalPriceCart() {
+    let sum = 0;
+    for (let prdId in this.items) sum += this.items[prdId].totalPrice;
 
-        return sum
-    }
+    return sum;
+  }
+
+  getQuantity(product: Product) {
+    //  let key = this.prd.key as unknown as number;
+    if (!product.key) return 0;
+    let item = this.itemsMap[product.key];
+    return item ? item.quantity : 0;
+  }
 }
