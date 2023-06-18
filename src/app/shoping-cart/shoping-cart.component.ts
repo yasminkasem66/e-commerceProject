@@ -6,17 +6,18 @@ import { ShoppingCartService } from '../@AppService/services/shopping-cart.servi
 @Component({
   selector: 'app-shoping-cart',
   templateUrl: './shoping-cart.component.html',
-  styleUrls: ['./shoping-cart.component.scss']
+  styleUrls: ['./shoping-cart.component.scss'],
 })
 export class ShopingCartComponent implements OnInit {
   cart$!: Observable<Cart | null>;
 
-  constructor(private shoppingCartService: ShoppingCartService,
-  ) {
-
-  }
+  constructor(private shoppingCartService: ShoppingCartService) {}
 
   async ngOnInit() {
-    this.cart$ = (await this.shoppingCartService.getCart())
+    this.cart$ = await this.shoppingCartService.getCart();
+  }
+
+  Clear() {
+    this.shoppingCartService.clearCart();
   }
 }

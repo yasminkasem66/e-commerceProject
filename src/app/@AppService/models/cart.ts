@@ -4,9 +4,13 @@ import { Product } from './product';
 export class Cart {
   items: CartItem[] = [];
   constructor(public itemsMap: { [productId: string]: CartItem }) {
+    this.itemsMap = itemsMap || {};
     for (let prd in itemsMap) {
       let item = itemsMap[prd];
-      this.items.push(new CartItem(item.product, item.quantity));
+      // let x = new CartItem();
+      // x.key = prd;
+      // Object.assign(x, item);
+      this.items.push(new CartItem({ ...item, key: prd }));
     }
   }
 

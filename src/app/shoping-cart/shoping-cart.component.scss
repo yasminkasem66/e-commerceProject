@@ -1,0 +1,15 @@
+.w-230 {
+  width: 200px;
+}
+
+.thumbnail {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  aspect-ratio: 2/3;
+  object-fit: contain;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
